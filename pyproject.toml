@@ -1,0 +1,65 @@
+[tool.poetry]
+name = 'test_bank'
+version = '0.1.0'
+description = ''
+authors = ['Артем Проценко <artpropy@gmail.com>']
+readme = 'README.md'
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.111.0"
+uvicorn = {extras = ["standard"], version = "^0.25.0"}
+sqlalchemy = "^2.0.20"
+psycopg2-binary = "^2.9.7"
+requests = "^2.32.0"
+pydantic = "^2.2.0"
+
+[build-system]
+requires = ['poetry-core']
+build-backend = 'poetry.core.masonry.api'
+
+[tool.black]
+line-length = 85
+skip-string-normalization = true
+
+[tool.isort]
+profile = 'black'
+line_length = 85
+multi_line_output = 3
+
+[tool.ruff]
+target-version = 'py312'        # Min version python
+line-length = 85                # Allow lines to be as long as 85 characters.
+show-fixes = true               # Enumerate all fixed violations.
+cache-dir = '~/.cache/ruff'
+
+output-format = 'grouped'              # Format of displayed text in the console
+
+[tool.ruff.lint]
+select = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'I', 'N', 'Q', 'S', 'T', 'W', 'ANN', 'ARG', 'COM', 'DJ', 'DTZ', 'EM', 'ERA', 'EXE', 'FBT', 'ICN', 'INP', 'ISC', 'NPY', 'PD', 'PGH', 'PIE', 'PL', 'PT', 'PTH', 'PYI', 'RET', 'RSE', 'RUF', 'SIM', 'TCH', 'TID', 'TRY', 'UP', 'YTT']
+ignore = ['ANN001', 'ANN002', 'ANN003', 'ANN101', 'ANN102', 'ANN201', 'B006', 'B008', 'COM812', 'D202', 'D203', 'D205', 'D212', 'DJ007', 'DTZ003', 'DTZ005', 'DTZ007', 'I001', 'INP001', 'N805', 'ISC001', 'Q000', 'Q003', 'RUF001', 'RUF002', 'RUF003', 'RUF012', 'S101', 'S311', 'PLR0913', 'E712']
+task-tags = ['TODO']
+
+[tool.pytest.ini_options]
+python_files = "*_tests.py"
+pythonpath = [
+    '.', '..',
+]
+addopts = '-v -rsxX -l --import-mode=importlib'
+asyncio_default_fixture_loop_scope = 'function'
+asyncio_mode='auto'
+
+[tool.ruff.format]
+quote-style = 'single'
+
+[tool.pytest]
+addopts = '--cov=static--cov-report html'
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+
+[dependency-groups]
+dev = [
+    "alembic (>=1.18.4,<2.0.0)",
+    "asyncpg (>=0.31.0,<0.32.0)"
+]
